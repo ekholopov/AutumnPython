@@ -1,6 +1,6 @@
 import numpy as np
 import common
-
+import matplotlib.pyplot as plt
 
 class Water(common.Common):
     def get_signals(self, r, phi):
@@ -14,9 +14,8 @@ class Water(common.Common):
             if time[i] > delay and time[i] < delay*self.ti:
                 signalleft[i] += np.sin(i*np.pi*self.fs*time[i])
                 signalright[i] += np.sin(i * np.pi * self.fs * (time[i] - dr))
-
+        # вывод фазы
+        print("Ishodnaya phasa = ", 2 * np.pi * self.fs * dr * 180 / np.pi)
+        plt.plot(time, signalleft, time, signalright)
+        plt.show()
         return((time, signalleft, signalright))
-
-
-water = Water()
-(time, signalleft, signalright) = water.get_signals(500, 30)
